@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend
+spec:
+  selector:
+    matchLabels:
+      app: todo-backend
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+        - image: vivekk2104/todo-backend:latest
+          imagePullPolicy: Always
+          name: todo-backend
+          ports:
+            - containerPort: 5000
